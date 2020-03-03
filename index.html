@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>groupBYte Saber</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script src="js/crossfilter.min.js"></script>
+    <script src="js/scoresabercon.js"></script>
+    <script src="js/group.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top justify-content-center">
+  <a class="navbar-brand" href="">groupBYte Saber</a>  
+  
+</nav>
+
+
+<div class="card bg-dark text-white" id="user-input-div">
+        
+    <div class="card-body">
+        <form action="javascript:user_input()">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Score Saber URL" id="user-input-text">
+                <span class=input-group-btn">
+                    <button type="submit" class="form-control btn btn-light">Submit </button>
+                </span>
+            </div>
+        </form>
+
+    </div>
+        
+</div>
+
+
+<div id="outer-container" class="container" style="margin-top:70px">
+    <div class="row">
+        <div class="col-sm-12">
+            PROFILE INFO
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="group-by-selection" class="col-sm-12">
+            <div class="card-group">
+                <div id="dimension-card-star" class="card bg-light dimension-card" onclick="javascript:select_dimension(0)">
+                    <div class="card-body text-center">
+                        <p class="card-text">star difficulty</p>
+                    </div>
+                </div>
+              
+                <div id="dimension-card-difficulty" class="card bg-light dimension-card" onclick="javascript:select_dimension(1)">
+                    <div class="card-body text-center">
+                        <p class="card-text">game difficulty</p>
+                    </div>
+                </div>
+              
+                <div id="dimension-card-mapper" class="card bg-light dimension-card" onclick="javascript:select_dimension(2)">
+                    <div class="card-body text-center">
+                        <p class="card-text">mapper</p>
+                    </div>
+                </div>
+                <div id="dimension-card-bpm" class="card bg-light dimension-card" onclick="javascript:select_dimension(3)">
+                    <div class="card-body text-center">
+                        <p class="card-text">bpm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dimension-content-star" class="dimension unselected-dimension-content col-sm-12">
+        <div class="row">
+            <div class="col-sm-3">
+                STARS
+            </div>
+              
+            <div class="col-sm-9">
+                MAPS
+            </div>
+        </div>
+    </div>
+
+    <div id="dimension-content-difficulty" class="dimension unselected-dimension-content col-sm-12">
+        <div class="row">
+            <div class="col-sm-3">
+                DIFFICULTIES
+            </div>
+              
+            <div class="col-sm-9">
+                MAPS
+            </div>
+        </div>
+    </div>
+
+    <div id="dimension-content-mapper" class="dimension unselected-dimension-content col-sm-12">
+        <div class="row">
+            <div class="col-sm-3">
+                MAPPERS
+            </div>
+              
+            <div class="col-sm-9">
+                MAPS
+            </div>
+        </div>
+    </div>
+
+    <div id="dimension-content-bpm" class="dimension unselected-dimension-content col-sm-12">
+        <div class="row">
+            <div class="col-sm-3">
+                BPMS
+            </div>
+              
+            <div class="col-sm-9">
+                MAPS
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+</body>
+
+<script>
+    window.onload = function() {
+        let url = window.location.href;
+        if (url.indexOf("?") < 0){
+            $("#user-input-div").css("display", "flex");
+        } else {
+            $("#outer-container").css("display", "block");
+        }
+    };
+</script>
+</html>

@@ -1,0 +1,41 @@
+#user-input-div{
+	position:fixed;
+	width: 500px;
+	min-height: 80px;
+	top:calc(50% - 40px);
+	bottom:calc(50% - 40px);
+	right:calc(50% - 250px);
+	left:calc(50% - 250px);	
+	z-index:10;	
+	display: none;  /* this must be set to flex*/
+	justify-content:space-around;
+}
+
+#outer-container{
+	display:none;
+}
+
+#user-input-text{
+	margin-right: 10px;
+}
+
+#group-by-selection{
+	cursor: pointer;
+	font-weight: bold;
+}
+.dimension{
+	
+}
+
+.selected-card{
+	background-color: #343a40 !important;	
+	color: white;
+	border-bottom-width: 0px;
+}
+
+.unselected-dimension-content{
+	display: none;
+}
+.selected-dimension-content{
+	display: block !important;
+}
