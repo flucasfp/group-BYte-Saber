@@ -1,4 +1,8 @@
-#user-input-div{
+h1, h2, h3, h4, h5, h6 {
+    display: inline;
+}
+
+#user-input-div, #loading-div-container{
 	position:fixed;
 	width: 500px;
 	min-height: 80px;
@@ -9,6 +13,11 @@
 	z-index:10;	
 	display: none;  /* this must be set to flex*/
 	justify-content:space-around;
+}
+
+#loading-div-container{
+	text-align: center;	
+	border: 1px black;
 }
 
 #outer-container{
@@ -28,14 +37,35 @@
 }
 
 .selected-card{
-	background-color: #343a40 !important;	
+	/*background-color: #343a40 !important; */
+	background-color: #209cee !important;	
+	
 	color: white;
 	border-bottom-width: 0px;
 }
 
 .unselected-dimension-content{
-	display: none;
+	/*display: none;*/
 }
 .selected-dimension-content{
-	display: block !important;
+	/*display: block !important;*/
+}
+
+.selected-group{
+  	border-right: 6px solid #209cee;
+}
+
+.groups-container{
+	margin-top: 20px;
+}
+
+.group-div{
+
+	min-height: 60px;
+	cursor: pointer;
+}
+
+.song{
+	min-height: 100px;
+
 }

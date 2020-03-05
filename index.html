@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>groupBYte Saber</title>
+    <title>Grouped Score Saber</title>
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,8 +11,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <script src="js/crossfilter.min.js"></script>
-    <script src="js/scoresabercon.js"></script>
-    <script src="js/group.js"></script>
+    <script src="js/scoresabercon.js"></script>    
+    <script src="js/view.js"></script>
+    <script src="js/grouping.js"></script>
+    <script src="server/aaa.json"></script>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -20,7 +22,7 @@
 <body>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top justify-content-center">
-  <a class="navbar-brand" href="">groupBYte Saber</a>  
+  <a class="navbar-brand" href="/">Grouped Score Saber</a>
   
 </nav>
 
@@ -41,6 +43,15 @@
         
 </div>
 
+<div id="loading-div-container">
+    <div id="loading-div" class="spinner-border text-info"></div>
+    <br>
+    <span><h4>Loading</h4></span>        
+    <br>
+    <span id="loading-text"></span>
+    
+    
+</div>
 
 <div id="outer-container" class="container" style="margin-top:70px">
     <div class="row">
@@ -79,48 +90,47 @@
     </div>
 
     <div id="dimension-content-star" class="dimension unselected-dimension-content col-sm-12">
-        <div class="row">
-            <div class="col-sm-3">
-                STARS
+        <div class="row groups-container">
+            <div id="group-list-container-star" class="group-list-container col-sm-2">
             </div>
               
-            <div class="col-sm-9">
-                MAPS
+            <div class="group-content-container col-sm-10">
+                
             </div>
         </div>
     </div>
 
     <div id="dimension-content-difficulty" class="dimension unselected-dimension-content col-sm-12">
-        <div class="row">
-            <div class="col-sm-3">
+        <div class="row groups-container">
+            <div class="group-list-container col-sm-2">
                 DIFFICULTIES
             </div>
               
-            <div class="col-sm-9">
+            <div class="group-content-container col-sm-10">
                 MAPS
             </div>
         </div>
     </div>
 
     <div id="dimension-content-mapper" class="dimension unselected-dimension-content col-sm-12">
-        <div class="row">
-            <div class="col-sm-3">
+        <div class="row groups-container">
+            <div class="group-list-container col-sm-2">
                 MAPPERS
             </div>
               
-            <div class="col-sm-9">
+            <div class="group-content-container col-sm-10">
                 MAPS
             </div>
         </div>
     </div>
 
     <div id="dimension-content-bpm" class="dimension unselected-dimension-content col-sm-12">
-        <div class="row">
-            <div class="col-sm-3">
+        <div class="row groups-container">
+            <div class="group-list-container col-sm-2">
                 BPMS
             </div>
               
-            <div class="col-sm-9">
+            <div class="group-content-container col-sm-10">
                 MAPS
             </div>
         </div>
@@ -132,12 +142,32 @@
 </body>
 
 <script>
-    window.onload = function() {
+    window.onload = async function() {
         let url = window.location.href;
-        if (url.indexOf("?") < 0){
-            $("#user-input-div").css("display", "flex");
+        if (url.indexOf("?") < 0){            
+            $("#user-input-div").fadeToggle(500);
         } else {
-            $("#outer-container").css("display", "block");
+            $("#loading-div-container").fadeToggle(500);
+            $("#loading-text").text("(1/3) Retrieving Score Saber data...");
+            user_id = window.location.href.split("?u=")[1]
+            //let data = await getData(user_id);
+            //console.log(data);
+            data = ranked_songs;
+            
+            $("#loading-text").text("(2/3) Grouping data...");
+            dimension_list = create_dimensions();
+            
+            $("#loading-text").text("(3/3) Creating views...");
+            create_groups(dimension_list);
+
+            $("#loading-div-container").fadeToggle(500, complete=function(){
+                select_dimension(0);
+                $("#outer-container").fadeToggle(500);
+            });
+
+
+
+            
         }
     };
 </script>
