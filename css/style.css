@@ -61,11 +61,53 @@ h1, h2, h3, h4, h5, h6 {
 
 .group-div{
 
-	min-height: 60px;
+	/*min-height: 60px;*/
 	cursor: pointer;
 }
 
-.song{
-	min-height: 100px;
+.song, .song-info{
+	height: 100px;	
+}
 
+.song.unpassed{
+	background-color: rgb(255, 0, 0, 0.08);
+}
+.song.passed{
+	background-color: rgb(0, 255, 0, 0.08);
+}
+
+.song-img{
+	width: 80px;
+	height: 80px;
+	float: left;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
+	border: 2px solid #209cee;
+}
+
+.song-author, .song-name{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.difficulty{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.expert-plus{
+	color: #8f48db
+}
+.expert{
+	color: #bf2a42
+}
+.hard{
+	color: tomato;
+}
+.normal{
+	color: #59b0f4;
+}
+.easy{
+	color: MediumSeaGreen;
 }

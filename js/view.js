@@ -58,18 +58,57 @@ function user_input(){
 function add_group(dimension_index, title, played_songs, total_songs, acc){
 	parent_div_selector = dimension_content_ids[dimension_index] + " .group-list-container";
 
-	group_html = "<div class='group-div'><h5>"+title+"</h5> <h6>("+played_songs+"/"+total_songs+")</h6><br><h6>acc: "+acc.toFixed(2)+"%</h6></div><hr>";
-	
+	group_html = "<div class='group-div'><h5>"+title+"</h5> <h6>("+played_songs+"/"+total_songs+")</h6><br><h6>acc: "+acc+"</h6></div><hr>";
+
 	$(parent_div_selector).append(group_html);
+
+	// creating the group content container
+	$(dimension_content_ids[dimension_index]+ " .group-content-container-div").append("<div class='group-content-container'></div>");
+	console.log(dimension_content_ids[dimension_index] + " .group-content-container-div");
 
 }
 
-function add_group_content(dimension_index, group_index, teste){
+function translate_difficulty(d){
+	// returns difficulty name and its css class
+	if(d == "_Easy_SoloStandard") return ["Easy", "easy"];
+	
+	if(d == "_Normal_SoloStandard") return ["Normal", "normal"];
+
+	if(d == "_Hard_SoloStandard") return ["Hard", "hard"];
+
+	if(d == "_Expert_SoloStandard")	return ["Expert", "expert"];
+
+	if(d == "_ExpertPlus_SoloStandard") return ["Expert+", "expert-plus"];
+
+	return ["Unknown Difficulty", ""];
+
+}
+
+function generate_song_html(song){
+	console.log()
+	s = "<div class='song "+ (song.passed ? "passed" : "unpassed") + "'>";
+	s += "<img class='song-img' src=https://www.scoresaber.com" + song.image + "></img>";
+	s += "<div class='song-info'><span class='song-author'>" + song.songAuthorName + "</span> - ";
+	s += "<span class='song-name'>" + song.name + "</span> ";
+	s += "<span class='song-subname'>" + song.songSubName + "</span>";	
+	s += "<br>"
+	diff = translate_difficulty(song.diff);
+	s += "<span class='difficulty " + diff[1] + "'>" + diff[0] + "</span> ";
+	s += "<span class='song-star'>(" + song.stars + " ★)</span> ";
+	s += "<br>";	
+	s += "<span class='song-mapper'>by " + song.levelAuthorName + "</span>";
+	s += "<br>";
+	
+	s += "</div></div><hr>";
+	
+	return s;
+}
+
+function add_group_content(dimension_index, group_index, song){
 	parent_div_selector = dimension_content_ids[dimension_index] + " .group-content-container";
 
-	group_html = "<div class='group-content'><div class='song'>"+teste+"<br></div></div>";
-
-	$(parent_div_selector).append(group_html);
+	group_html = "<div class='group-content'>"+generate_song_html(song)+"</div>";
+	$($(parent_div_selector).get(group_index)).append(group_html);
 }
 
 let selecting_group = false;
@@ -86,12 +125,12 @@ function select_group(dimension_index, group_index){
 	$($(dimension_content_ids[dimension_index]+" .group-div").get(group_index)).addClass("selected-group");
 
 	// show selected group content
-	$(dimension_content_ids[dimension_index]+" .group-content").each(function(i, d){
+	$(dimension_content_ids[dimension_index]+" .group-content-container").each(function(i, d){
 		$(d).fadeOut(100);
 	})
 	setTimeout(function(){
-		$($(dimension_content_ids[dimension_index]+" .group-content").get(group_index)).fadeIn(100);
-		console.log($(dimension_content_ids[dimension_index]+" .group-content"));
+		$($(dimension_content_ids[dimension_index]+" .group-content-container").get(group_index)).fadeIn(100);
+		
 		setTimeout(function(){
 			selecting_group = false;
 		}, 100)

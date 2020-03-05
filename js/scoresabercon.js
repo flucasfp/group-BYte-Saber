@@ -11,7 +11,6 @@ function getAllRankedMaps(){
 	});
 }
 
-
 function getAllUserData(user_id){
 
 	return new Promise(function(resolve, reject){

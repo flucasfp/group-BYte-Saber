@@ -15,6 +15,7 @@
     <script src="js/view.js"></script>
     <script src="js/grouping.js"></script>
     <script src="server/aaa.json"></script>
+    <script src="server/bbb.json"></script>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -55,8 +56,8 @@
 
 <div id="outer-container" class="container" style="margin-top:70px">
     <div class="row">
-        <div class="col-sm-12">
-            PROFILE INFO
+        <div class="col-sm-12" style="text-align: center">
+            PROFILE INFO TODO
         </div>
     </div>
 
@@ -94,7 +95,7 @@
             <div id="group-list-container-star" class="group-list-container col-sm-2">
             </div>
               
-            <div class="group-content-container col-sm-10">
+            <div class="group-content-container-div col-sm-10">
                 
             </div>
         </div>
@@ -153,9 +154,13 @@
             //let data = await getData(user_id);
             //console.log(data);
             data = ranked_songs;
-            
+            profile = player;
+
+            m_data = merge_data(data["songs"], profile["scores"]);
+            console.log(m_data);
+            cf = crossfilter(m_data);
             $("#loading-text").text("(2/3) Grouping data...");
-            dimension_list = create_dimensions();
+            dimension_list = create_dimensions(cf);
             
             $("#loading-text").text("(3/3) Creating views...");
             create_groups(dimension_list);

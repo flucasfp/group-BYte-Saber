@@ -24,7 +24,7 @@ def user():
 	user_profile_url = "https://new.scoresaber.com/api/player/"+user_id+"/full"
 	current_page = 1
 	data = []
-	return jsonify(data);
+	
 	last_is_ranked = True
 	while last_is_ranked:
 		# print("Fetching page", current_page)
@@ -40,8 +40,8 @@ def user():
 	data = list(filter(lambda x: x["pp"] > 0, data))
 	aggregate_data = {}
 	aggregate_data["scores"] = data
-	# r = requests.get(user_profile_url)
-	# aggregate_data["profile"] = json.loads(r.text)
+	r = requests.get(user_profile_url)
+	aggregate_data["profile"] = json.loads(r.text)
 
 	return jsonify(aggregate_data)
 
