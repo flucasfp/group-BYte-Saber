@@ -55,16 +55,16 @@ function user_input(){
 	}
 }
 
-function add_group(dimension_index, title, played_songs, total_songs, acc){
+function add_group(dimension_index, title, played_songs, total_songs, acc, pp){
 	parent_div_selector = dimension_content_ids[dimension_index] + " .group-list-container";
 
-	group_html = "<div class='group-div'><h5>"+title+"</h5> <h6>("+played_songs+"/"+total_songs+")</h6><br><h6>acc: "+acc+"</h6></div><hr>";
+	group_html = "<div class='group-div'><h5>"+title+"</h5> <h6>("+played_songs+"/"+total_songs+")</h6><br><h6>acc: "+acc+"</h6><br><h6>total of "+pp+"</h6></div><hr>";
 
 	$(parent_div_selector).append(group_html);
 
 	// creating the group content container
 	$(dimension_content_ids[dimension_index]+ " .group-content-container-div").append("<div class='group-content-container'></div>");
-	console.log(dimension_content_ids[dimension_index] + " .group-content-container-div");
+	
 
 }
 
@@ -85,21 +85,38 @@ function translate_difficulty(d){
 }
 
 function generate_song_html(song){
-	console.log()
+	
 	s = "<div class='song "+ (song.passed ? "passed" : "unpassed") + "'>";
 	s += "<img class='song-img' src=https://www.scoresaber.com" + song.image + "></img>";
+
+	if(song.passed){
+		s += "<div class='song-score'>";
+		s += "<span class='song-score-pp'>"+song.score.pp.toFixed(2)+"pp </span> ";
+		s += "<span class='song-score-pp-weighted'>("+(song.score.pp*song.score.weight).toFixed(2)+"pp)</span><br>";
+		s += "accuracy: <span class='song-score-acc'>"+(song.score.uScore/song.score.maxScoreEx*100).toFixed(2)+"%</span>";
+		if(song.score.mods.length > 0){
+			s += "<span class='song-score-mods'> ("+(song.score.mods)+")</span>";
+		}
+		
+		s += "<br><span class='song-score-date'>"+timeSince(song.score.timeset)+"</span>";
+
+		s += "</div>";
+	}
+	
+
 	s += "<div class='song-info'><span class='song-author'>" + song.songAuthorName + "</span> - ";
 	s += "<span class='song-name'>" + song.name + "</span> ";
 	s += "<span class='song-subname'>" + song.songSubName + "</span>";	
 	s += "<br>"
 	diff = translate_difficulty(song.diff);
 	s += "<span class='difficulty " + diff[1] + "'>" + diff[0] + "</span> ";
-	s += "<span class='song-star'>(" + song.stars + " ★)</span> ";
+	s += "<span class='song-star'>(" + song.stars + " ★, " + song.bpm + " bpm)</span> ";
 	s += "<br>";	
 	s += "<span class='song-mapper'>by " + song.levelAuthorName + "</span>";
 	s += "<br>";
+
 	
-	s += "</div></div><hr>";
+	s += "</div></div>";
 	
 	return s;
 }
@@ -112,11 +129,12 @@ function add_group_content(dimension_index, group_index, song){
 }
 
 let selecting_group = false;
-function select_group(dimension_index, group_index){
+function select_group(dimension_index, group_index, block_user=true){
+	
 	if(selecting_group){
 		return;
 	}
-	selecting_group = true;
+	if(block_user){selecting_group = true;}
 
 	// select group in group list
 	$(dimension_content_ids[dimension_index]+" .group-div").each(function(i, d){
@@ -138,3 +156,74 @@ function select_group(dimension_index, group_index){
 	
 	
 }
+
+function toggle_passed(){
+	$(".unpassed").fadeToggle(500);
+}
+
+function get_country_emoji(country){
+	for(let i=0; i<country_flags.length; i++){
+		if(country_flags[i].code == country){
+			return country_flags[i].emoji;
+		}
+	}
+}
+
+function update_profile_info(profile){
+	console.log(profile);
+	$("#profile-avatar").attr("src", "https://new.scoresaber.com" + profile.playerInfo.avatar);
+	$("#profile-country").text(get_country_emoji(profile.playerInfo.country));
+	$("#profile-country-rank-indicator").text(get_country_emoji(profile.playerInfo.country));
+	$("#profile-name").text(profile.playerInfo.name);
+	$("#profile-pp").text(profile.playerInfo.pp);
+	$("#profile-rank").text(profile.playerInfo.rank);
+	$("#profile-rank-country").text(profile.playerInfo.countryRank);
+	$("#profile-ranked-play-count").text(profile.scoreStats.rankedPlayCount);
+	$("#profile-accuracy").text(profile.scoreStats.averageRankedAccuracy.toFixed(2));
+	
+}
+
+// the following code is from https://stackoverflow.com/a/23259289
+var timeSince = function(date) {
+
+  if (typeof date !== 'object') {
+    date = new Date(date);
+  }
+  
+  var seconds = Math.floor((new Date() - date) / 1000);  
+  var intervalType;
+
+  var interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) {
+    intervalType = 'year';
+  } else {
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) {
+      intervalType = 'month';
+    } else {
+      interval = Math.floor(seconds / 86400);
+      if (interval >= 1) {
+        intervalType = 'day';
+      } else {
+        interval = Math.floor(seconds / 3600);
+        if (interval >= 1) {
+          intervalType = "hour";
+        } else {
+          interval = Math.floor(seconds / 60);
+          if (interval >= 1) {
+            intervalType = "minute";
+          } else {
+            interval = seconds;
+            intervalType = "second";
+          }
+        }
+      }
+    }
+  }
+
+  if (interval > 1 || interval === 0) {
+    intervalType += 's';
+  }
+
+  return interval + ' ' + intervalType + ' ago';
+};

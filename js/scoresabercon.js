@@ -1,4 +1,4 @@
-server_url = "http://127.0.0.1:5000";
+server_url = "http://18.212.147.154";
 
 function getAllRankedMaps(){
 

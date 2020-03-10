@@ -1,3 +1,7 @@
+.body{
+	font-family: "Lato",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6 {
     display: inline;
 }
@@ -59,6 +63,17 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 20px;
 }
 
+.group-content-container-div, .group-list-container{
+	overflow-y: auto;
+	height:auto;
+    max-height:85vh;
+
+}
+
+.song{
+    border: 1px solid #209cee;
+}
+
 .group-div{
 
 	/*min-height: 60px;*/
@@ -91,6 +106,28 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 
+.song-score{
+	float: right;
+	margin-right: 10px;
+	text-align: right;
+}
+
+.song-score-pp{
+	font-size: 18px;
+	font-weight: bold;
+	color: #6772E5;
+}
+
+.song-score-acc{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.song-score-pp-weighted{
+	font-size: 16px;
+	font-style: italic;
+}
+
 .difficulty{
 	font-size: 14px;
 	font-weight: bold;
@@ -110,4 +147,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 .easy{
 	color: MediumSeaGreen;
+}
+
+#profile-info{
+	margin-bottom: 10px;
+}
+
+#profile-avatar{
+	margin-right: 10px;
+	float: left;
+	height: 120px;
+	width: 120px;
+	border: 2px solid #209cee;
+}
+
+#profile-name{
+	font-weight: bold;
+	font-size: 18px;
+}
+.profile-key{
+	font-weight: bold;
 }

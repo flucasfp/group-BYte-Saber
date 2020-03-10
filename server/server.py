@@ -5,13 +5,12 @@ import requests, json
 app = Flask(__name__)
 cors = CORS(app)
 
+# SORRY UMBRA PLEASE DONT HURT ME
 
 @app.route('/allsongs')
 def all_songs():
 	all_songs_url = "https://www.scoresaber.com/api.php?function=get-leaderboards&cat=3&page=1&limit=1000"
 	r = requests.get(all_songs_url)
-	with open("aaa.json", "w") as f:
-		f.write(r.text)		
 	return r.text
 	
 
@@ -45,4 +44,4 @@ def user():
 
 	return jsonify(aggregate_data)
 
-app.run(debug=True)
+app.run(host='0.0.0.0', port=80)
