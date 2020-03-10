@@ -170,7 +170,7 @@ function get_country_emoji(country){
 }
 
 function update_profile_info(profile){
-	console.log(profile);
+	
 	$("#profile-avatar").attr("src", "https://new.scoresaber.com" + profile.playerInfo.avatar);
 	$("#profile-country").text(get_country_emoji(profile.playerInfo.country));
 	$("#profile-country-rank-indicator").text(get_country_emoji(profile.playerInfo.country));
