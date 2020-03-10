@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS, cross_origin
 import requests, json
 
-app = Flask(__name__, static_url_path='', static_folder='static', template_folder='templates')
+app = Flask(__name__)
 cors = CORS(app)
 
 # SORRY UMBRA PLEASE DONT HURT ME
@@ -10,7 +10,7 @@ cors = CORS(app)
 @app.route('/allsongs')
 def all_songs():
 	all_songs_url = "https://www.scoresaber.com/api.php?function=get-leaderboards&cat=3&page=1&limit=1000"
-	r = requests.get(all_songs_url, verify=False)
+	r = requests.get(all_songs_url)
 	return r.text
 	
 @app.route('/history')
@@ -25,7 +25,7 @@ def user():
 	last_is_ranked = True
 	while last_is_ranked:
 		# print("Fetching page", current_page)
-		r = requests.get(user_history_url+str(current_page), verify=False)
+		r = requests.get(user_history_url+str(current_page))
 		data.extend(json.loads(r.text)["scores"])
 
 		if data[-1]["pp"] == 0:

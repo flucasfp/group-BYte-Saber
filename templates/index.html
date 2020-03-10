@@ -10,13 +10,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <script src="js/crossfilter.min.js"></script>
-    <script src="js/scoresabercon.js"></script>    
-    <script src="js/country_flags.js"></script>
-    <script src="js/view.js"></script>
-    <script src="js/grouping.js"></script>
+    <script src="{{ url_for('static', filename='js/crossfilter.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scoresabercon.js') }}"></script>    
+    <script src="{{ url_for('static', filename='js/country_flags.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/view.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/grouping.js') }}"></script>
     
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 <body>
