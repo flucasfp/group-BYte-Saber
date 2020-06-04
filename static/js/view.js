@@ -169,7 +169,7 @@ function get_country_emoji(country){
 	}
 }
 
-function update_profile_info(profile){
+function update_profile_info(profile, merged_data){
 	
 	$("#profile-avatar").attr("src", "https://new.scoresaber.com" + profile.playerInfo.avatar);
 	$("#profile-country").text(get_country_emoji(profile.playerInfo.country));
@@ -180,6 +180,17 @@ function update_profile_info(profile){
 	$("#profile-rank-country").text(profile.playerInfo.countryRank);
 	$("#profile-ranked-play-count").text(profile.scoreStats.rankedPlayCount);
 	$("#profile-accuracy").text(profile.scoreStats.averageRankedAccuracy.toFixed(2));
+	
+	let cummulative = 0;
+	let total_weight = 0;
+	for(let i=0; i<merged_data.length; i++){
+		item = merged_data[i];
+		if(item.passed){
+			total_weight += item.stars;
+			cummulative += item.stars * (item.score.uScore/item.score.maxScoreEx);
+		}
+	}
+	$("#profile-balanced-accuracy").text((100.0*(cummulative/total_weight)).toFixed(2));
 	
 }
 

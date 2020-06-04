@@ -55,12 +55,12 @@
 
 <div id="outer-container" class="container" style="margin-top:70px">
     <div id="profile-info" class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-12">
             <img id="profile-avatar">
             <span id="profile-country"></span> <span id="profile-name"></span><br>
             <span class="profile-key">Player Ranking:</span> #<span id="profile-rank"></span> - (<span id="profile-country-rank-indicator"></span> #<span id="profile-rank-country"></span>)<br>
             <span class="profile-key">Performance Points: </span><span id="profile-pp"></span><br>            
-            <span class="profile-key">Play Count: </span><span id="profile-ranked-play-count"></span> - (<span id="profile-accuracy"></span>%)<br>
+            <span class="profile-key">Play Count: </span><span id="profile-ranked-play-count"></span> - (<span id="profile-accuracy"></span>% acc) - (<span id="profile-balanced-accuracy"></span>% star-weighted acc)<br>
             <input type="checkbox" id="passed-checkbox" name="passed-checkbox" onclick="javascript:toggle_passed();">
             <label for="passed-checkbox"> Show only passed scores</label><br>
         </div>
@@ -167,9 +167,9 @@
             songs = server_data[0];
             player = server_data[1];
 
-            update_profile_info(player.profile);
-
             m_data = merge_data(songs, player["scores"]);
+
+            update_profile_info(player.profile, m_data);
             
             cf = crossfilter(m_data);
             // $("#loading-text").text("(2/3) Grouping data...");
